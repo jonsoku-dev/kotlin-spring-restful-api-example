@@ -9,5 +9,5 @@ interface PersonManagementService {
     fun findAll(): List<PersonResponse>
     fun save(addPersonRequest: AddPersonRequest): PersonResponse
     fun update(updatePersonRequest: UpdatePersonRequest): PersonResponse
-    fun delete(id: Long): Unit
+    fun deleteById(id: Long): Unit
 }
