@@ -5,6 +5,8 @@ import com.tamastudy.kotlinrestapi.dto.PersonResponse
 import com.tamastudy.kotlinrestapi.dto.UpdatePersonRequest
 import com.tamastudy.kotlinrestapi.resource.PersonResourceImpl.Companion.BASE_PERSON_URL
 import com.tamastudy.kotlinrestapi.service.PersonManagementService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,7 +25,8 @@ class PersonResourceImpl(
     }
 
     @GetMapping
-    override fun findAll(): ResponseEntity<List<PersonResponse>> = ResponseEntity.ok(this.personManagementService.findAll())
+    override fun findAll(pageable: Pageable): ResponseEntity<Page<PersonResponse>>
+            = ResponseEntity.ok(this.personManagementService.findAll(pageable))
 
     @PostMapping
     override fun save(@RequestBody addPersonRequest: AddPersonRequest): ResponseEntity<PersonResponse> {

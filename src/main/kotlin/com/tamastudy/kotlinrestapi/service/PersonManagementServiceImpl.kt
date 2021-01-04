@@ -7,6 +7,8 @@ import com.tamastudy.kotlinrestapi.dto.PersonResponse
 import com.tamastudy.kotlinrestapi.dto.UpdatePersonRequest
 import com.tamastudy.kotlinrestapi.transformer.AddPersonRequestTransformer
 import com.tamastudy.kotlinrestapi.transformer.toPersonResponse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -17,7 +19,7 @@ class PersonManagementServiceImpl(
 ) : PersonManagementService {
     override fun findById(id: Long): PersonResponse? = this.findPersonById(id).toPersonResponse()
 
-    override fun findAll(): List<PersonResponse> = this.personDao.findAll().map(Person::toPersonResponse)
+    override fun findAll(pageable: Pageable): Page<PersonResponse> = this.personDao.findAll(pageable).map(Person::toPersonResponse)
 
     override fun save(addPersonRequest: AddPersonRequest): PersonResponse {
         return this.saveOrUpdate(
